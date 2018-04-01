@@ -1,0 +1,8 @@
+mat-form-field {
+  width: 300px;
+}
+
+#submit-button {
+  max-width: 300px;
+  width: 100%;
+}
