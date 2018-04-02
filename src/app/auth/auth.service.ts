@@ -36,7 +36,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  public login(email: string, password: string): Observable<ITokenResponse> {
+  public generateToken(email: string, password: string): Observable<ITokenResponse> {
     return this.http.post<ITokenResponse>('https://staging-api.flosports.tv/api/tokens', { email, password })
   }
 

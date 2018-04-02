@@ -32,7 +32,7 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, private auth: AuthService) { }
 
   public submitForm() {
-    this.auth.login(this.emailValue, this.passwordValue)
+    this.auth.generateToken(this.emailValue, this.passwordValue)
       .subscribe(res => {
         console.log('success --', res)
         this.auth.setTokenRaw(res.token)
