@@ -36,6 +36,9 @@ export class LoginComponent {
       .subscribe(res => {
         console.log('success --', res)
         this.auth.setTokenRaw(res.token)
+        const user = this.auth.getUserFromStoredToken()
+        console.log('user --', user)
+        console.log('user isAdmin --', user.isAdmin())
       }, err => {
         console.log('error --', err)
       })
