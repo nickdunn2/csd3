@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
+import { JwtHelper } from 'angular2-jwt'
+
+import { CookieService } from '../shared/services/cookie.service'
 
 export interface IUserIdentity {
   analyticsData: any
@@ -29,11 +32,23 @@ export interface ITokenResponse {
 
 @Injectable()
 export class AuthService {
+  private jwtHelper = new JwtHelper()
+
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
+
   public login(email: string, password: string): Observable<ITokenResponse> {
-    console.log('auth email --', email)
-    console.log('auth pw --', password)
     return this.http.post<ITokenResponse>('https://staging-api.flosports.tv/api/tokens', { email, password })
   }
 
-  constructor(private http: HttpClient) {}
+  public setTokenRaw(rawToken: string) {
+    this.cookieService.set('jwt_token', rawToken, {
+      secure: false,
+      path: '/',
+      expires: this.getTokenExpirationDate(rawToken)
+    })
+  }
+
+  private getTokenExpirationDate(rawToken: string): Date {
+    return this.jwtHelper.getTokenExpirationDate(rawToken)
+  }
 }

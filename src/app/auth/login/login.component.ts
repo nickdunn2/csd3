@@ -35,6 +35,7 @@ export class LoginComponent {
     this.auth.login(this.emailValue, this.passwordValue)
       .subscribe(res => {
         console.log('success --', res)
+        this.auth.setTokenRaw(res.token)
       }, err => {
         console.log('error --', err)
       })
