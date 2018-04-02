@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 
+import { AuthService } from '../auth.service'
 import { validateEmail } from '../../shared/validators/email.validator'
 
 @Component({
@@ -21,11 +22,21 @@ export class LoginComponent {
 
   public get email() { return this.loginForm.get('email') }
   public get password() { return this.loginForm.get('password') }
+  private get emailValue() {
+    return this.email && this.email.value
+  }
+  private get passwordValue() {
+    return this.password && this.password.value
+  }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private auth: AuthService) { }
 
   public submitForm() {
-    console.log('loginForm --', this.loginForm)
-    // TODO: get some staging JWT crap in here
+    this.auth.login(this.emailValue, this.passwordValue)
+      .subscribe(res => {
+        console.log('success --', res)
+      }, err => {
+        console.log('error --', err)
+      })
   }
 }
