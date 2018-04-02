@@ -55,9 +55,7 @@ export class AuthService {
     }
     try {
       const decodedToken = this.jwtHelper.decodeToken(token)
-      return decodedToken && !this.jwtHelper.isTokenExpired(token)
-        ? decodedToken
-        : undefined
+      return decodedToken && !this.jwtHelper.isTokenExpired(token) ? decodedToken : undefined
     } catch (e) {
       return undefined
     }
