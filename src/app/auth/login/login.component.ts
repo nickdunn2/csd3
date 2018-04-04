@@ -1,7 +1,6 @@
 import { Component } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/switchMap'
 
 import { AuthService, ITokenResponse } from '../auth.service'
 import { validateEmail } from '../../shared/validators/email.validator'
@@ -32,7 +31,7 @@ export class LoginComponent {
   }
 
   constructor(private fb: FormBuilder, private auth: AuthService) { }
-  
+
   public submitForm() {
     this.auth.generateToken(this.emailValue, this.passwordValue)
       .map((res: ITokenResponse) => {
