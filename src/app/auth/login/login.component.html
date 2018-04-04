@@ -9,6 +9,8 @@
     <mat-form-field>
       <input matInput type="password" formControlName="password" placeholder="Password" (focus)="password.markAsUntouched()">
       <mat-error *ngIf="password.hasError('required')">Password required.</mat-error>
+      <mat-error *ngIf="password.hasError('invalid_login')">Invalid email/password.</mat-error>
+      <mat-error *ngIf="password.hasError('not_admin')">User does not have admin privileges.</mat-error>
     </mat-form-field>
     <button mat-raised-button id="submit-button" type="submit" color="primary" [disabled]="loginForm.invalid">Log In</button>
   </form>

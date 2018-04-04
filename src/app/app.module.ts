@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module'
 import { AuthModule } from './auth/auth.module'
 import { MaterialModule } from './material.module'
 import { AuthService } from './auth/auth.service'
+import { SharedModule } from './shared/shared.module'
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthService } from './auth/auth.service'
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
-    AuthModule
+    AuthModule,
+    SharedModule
   ],
   providers: [
     AuthService
