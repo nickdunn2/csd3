@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module'
 import { MaterialModule } from './material.module'
 import { AuthService } from './auth/auth.service'
 import { SharedModule } from './shared/shared.module'
+import { UsersModule } from './users/users.module'
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SharedModule } from './shared/shared.module'
     MaterialModule,
     AppRoutingModule,
     AuthModule,
+    UsersModule,
     SharedModule
   ],
   providers: [
