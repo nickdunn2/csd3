@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
+import { Router } from '@angular/router'
 import 'rxjs/add/operator/map'
 
 import { AuthService, ITokenResponse } from '../auth.service'
@@ -30,7 +31,10 @@ export class LoginComponent {
     return this.password && this.password.value
   }
 
-  constructor(private fb: FormBuilder, private auth: AuthService) { }
+  constructor(private fb: FormBuilder,
+              private auth: AuthService,
+              private router: Router
+  ) {}
 
   public submitForm() {
     this.auth.generateToken(this.emailValue, this.passwordValue)
@@ -42,17 +46,14 @@ export class LoginComponent {
         return this.auth.getUserFromStoredToken()
       })
       .subscribe(user => {
-        console.log('user --', user)
-
-        if (!user.isAdmin()) {
-          this.password.setErrors({ not_admin: true })
-          console.log('user does not have admin privileges')
+        if (user.isAdmin()) {
+          this.router.navigate(['/users'])
         } else {
-          console.log('user is an admin!')
+          this.password.setErrors({ not_admin: true })
         }
       }, err => {
         this.password.setErrors({ invalid_login: true })
-        console.log('error --', err)
+        console.error(err.error, err.message)
       })
   }
 }
